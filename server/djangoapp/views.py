@@ -12,8 +12,6 @@ import json
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
-
-
 # Create your views here.
 
 
@@ -23,15 +21,12 @@ def about(request):
     context={}
     if request.method == 'GET':
         return render(request, 'djangoapp/about.html', context)
-
-
 # Create a `contact` view to return a static contact page
 #def contact(request):
 def contact(request):
     context ={}
     if request.method == "GET":
         return render(request, "djangoapp/contact.html", context)
-
 # Create a `login_request` view to handle sign in request
 # def login_request(request):
 def login_request(request):
@@ -70,7 +65,7 @@ def registration_request(request):
     context = {}
     # If it is a GET request, just render the registration page
     if request.method == 'GET':
-        return render(request, 'djangoapp/user_registration.html', context)
+        return render(request, 'djangoapp/registration.html', context)
     # If it is a POST request
     elif request.method == 'POST':
         # Get user information from request.POST
@@ -89,13 +84,12 @@ def registration_request(request):
         # If it is a new user
         if not user_exist:
             # Create user in auth_user table
-            user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
-                                            password=password)
+            user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,password=password)
             # Login the user and redirect to course list page
             login(request, user)
-            return redirect("onlinecourse:popular_course_list")
+            return redirect("/djangoapp/")
         else:
-            return render(request, 'onlinecourse/user_registration.html', context)
+            return render(request, 'djangoapp/registration.html', context)
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
